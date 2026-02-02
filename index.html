@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Be My Valentine 💘</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      font-family: "Comic Sans MS", cursive, sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #ff758c, #ff7eb3);
+      overflow: hidden;
+      color: white;
+    }
+
+    .container {
+      text-align: center;
+      padding: 20px;
+    }
+
+    img {
+      width: 260px;
+      border-radius: 20px;
+      margin-bottom: 20px;
+    }
+
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 20px;
+    }
+
+    p {
+      font-size: 1.2rem;
+      min-height: 40px;
+    }
+
+    .buttons {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      margin-top: 20px;
+    }
+
+    button {
+      padding: 14px 26px;
+      font-size: 1.1rem;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    #yesBtn {
+      background-color: #ff3d68;
+      color: white;
+    }
+
+    #noBtn {
+      background-color: white;
+      color: #ff3d68;
+    }
+
+    .hidden {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container" id="askPage">
+    <img src="https://i.imgur.com/0Z8FQ0R.png" alt="Valentine">
+    <h1>Will you be my Valentine? 💖</h1>
+    <p id="message"></p>
+
+    <div class="buttons">
+      <button id="yesBtn">Yes 💘</button>
+      <button id="noBtn">No 🙄</button>
+    </div>
+  </div>
+
+  <div class="container hidden" id="yayPage">
+    <img src="https://i.imgur.com/5qHkJxT.png" alt="Yay">
+    <h1>YAYYYYY 💕🥰</h1>
+    <h1>You’re officially my Valentine 😍</h1>
+  </div>
+
+  <script>
+    // 🚫 Desktop blocker
+    if (window.innerWidth > 768) {
+      document.body.innerHTML = `
+        <div style="text-align:center;padding:30px;">
+          <h1>📱 Open this on your phone</h1>
+          <p>This Valentine surprise is mobile-only 💕</p>
+        </div>
+      `;
+    }
+
+    const noBtn = document.getElementById("noBtn");
+    const yesBtn = document.getElementById("yesBtn");
+    const message = document.getElementById("message");
+    const askPage = document.getElementById("askPage");
+    const yayPage = document.getElementById("yayPage");
+
+    const noMessages = [
+      "Hey… that was a mistake 😅",
+      "Try again, love 💕",
+      "You sure about that? 👀",
+      "Hmm… suspicious choice 🤨",
+      "Okay now you're just playing 😭",
+      "Be serious 😤",
+      "Last chance ooo 😏",
+      "Alright… I'm taking away the No button 😌"
+    ];
+
+    let noCount = 0;
+
+    noBtn.addEventListener("click", () => {
+      message.textContent = noMessages[noCount] || "Just tap YES already 😭💘";
+
+      // Make No button smaller each time
+      noBtn.style.transform = `scale(${1 - noCount * 0.1})`;
+
+      // Move No button randomly
+      noBtn.style.position = "absolute";
+      noBtn.style.left = Math.random() * 70 + "%";
+      noBtn.style.top = Math.random() * 70 + "%";
+
+      noCount++;
+
+      // After too many No's
+      if (noCount >= noMessages.length) {
+        noBtn.classList.add("hidden");
+      }
+    });
+
+    yesBtn.addEventListener("click", () => {
+      askPage.classList.add("hidden");
+      yayPage.classList.remove("hidden");
+    });
+  </script>
+
+</body>
+</html>
